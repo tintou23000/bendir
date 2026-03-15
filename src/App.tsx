@@ -31,7 +31,7 @@ export default function App() {
 
   useEffect(() => {
     // Load data.json on mount
-    fetch('/data.json')
+    fetch('./data.json')
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data)) {
