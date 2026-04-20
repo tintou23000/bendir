@@ -3,101 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>كشف نقاط التلاميذ</title>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>تسجيل دروس الإعلام الآلي - 2 متوسط</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Tajawal', sans-serif; }
+        body { font-family: 'Cairo', sans-serif; }
+        .gradient-bg {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+        }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+<body class="bg-gray-50 min-h-screen">
 
-    <div id="app" class="max-w-md w-full bg-white rounded-xl shadow-lg p-8">
-        <h1 class="text-2xl font-bold text-center text-blue-600 mb-6">استعلام عن النتائج</h1>
+    <header class="gradient-bg text-white py-10 px-4 text-center shadow-lg">
+        <h1 class="text-3xl md:text-4xl font-bold mb-2">منصة أستاذ الإعلام الآلي</h1>
+        <p class="text-blue-100 opacity-90">خاص بتلاميذ السنة الثانية متوسط - دروس الدعم والتقوية</p>
+    </header>
 
-        <div v-if="!result" class="space-y-4">
-            <div>
-                <label class="block text-sm font-medium text-gray-700">رقم التعريف</label>
-                <input v-model="searchId" type="text" placeholder="أدخل رقمك هنا" 
-                       class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500">
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700">تاريخ الميلاد</label>
-                <input v-model="searchDob" type="date" 
-                       class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500">
-            </div>
-            <button @click="findStudent" 
-                    class="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-700 transition">
-                بحث عن النتيجة
-            </button>
-            <p v-if="error" class="text-red-500 text-sm text-center">{{ error }}</p>
-        </div>
-
-        <div v-else class="space-y-4 animate-fade-in">
-            <div class="border-b pb-2 text-center">
-                <h2 class="text-xl font-bold text-gray-800">{{ result.firstName }} {{ result.lastName }}</h2>
-                <p class="text-sm text-gray-500">القسم: {{ result.className }}</p>
-            </div>
+    <main class="max-w-2xl mx-auto -mt-10 p-4">
+        <div class="bg-white rounded-2xl shadow-xl p-6 md:p-10">
             
-            <div class="grid grid-cols-3 gap-2 text-center">
-                <div class="bg-blue-50 p-2 rounded">
-                    <p class="text-xs text-blue-600 font-bold">النشاطات</p>
-                    <p class="text-lg font-bold">{{ result.activities }}</p>
-                </div>
-                <div class="bg-green-50 p-2 rounded">
-                    <p class="text-xs text-green-600 font-bold">الفرض</p>
-                    <p class="text-lg font-bold">{{ result.test }}</p>
-                </div>
-                <div class="bg-purple-50 p-2 rounded">
-                    <p class="text-xs text-purple-600 font-bold">الاختبار</p>
-                    <p class="text-lg font-bold">{{ result.exam }}</p>
-                </div>
+            <div class="flex items-center justify-center mb-8 border-b pb-4">
+                <span class="text-4xl ml-3">💻</span>
+                <h2 class="text-xl font-bold text-gray-700">استمارة حجز مقعد</h2>
             </div>
 
-            <div class="bg-gray-50 p-3 rounded text-center italic text-gray-700">
-                "{{ result.remarks }}"
-            </div>
+            <form action="https://formspree.io/f/xlgalqll" method="POST" class="space-y-6">
+                
+                <div>
+                    <label class="block text-sm font-bold text-gray-600 mb-2">اسم ولقب التلميذ(ة):</label>
+                    <input type="text" name="student_name" required 
+                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none transition-all"
+                        placeholder="اكتب اسمك هنا...">
+                </div>
 
-            <button @click="result = null; searchId = ''; searchDob = ''" 
-                    class="w-full bg-gray-200 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-300 transition">
-                بحث جديد
-            </button>
+                <div>
+                    <label class="block text-sm font-bold text-gray-600 mb-2">القسم (في المؤسسة):</label>
+                    <select name="class_section" required 
+                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none">
+                        <option value="">اختر قسمك...</option>
+                        <option>2 متوسط 1</option>
+                        <option>2 متوسط 2</option>
+                        <option>2 متوسط 3</option>
+                        <option>2 متوسط 4</option>
+                        <option>أخرى</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-gray-600 mb-2">رقم هاتف الولي (للتواصل):</label>
+                    <input type="tel" name="parent_phone" required 
+                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none"
+                        placeholder="06 / 07 / 05 ........">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-gray-600 mb-2">هل لديك حاسوب في البيت؟</label>
+                    <div class="flex gap-4">
+                        <label class="flex items-center cursor-pointer">
+                            <input type="radio" name="has_pc" value="نعم" class="ml-2"> نعم
+                        </label>
+                        <label class="flex items-center cursor-pointer">
+                            <input type="radio" name="has_pc" value="لا" class="ml-2"> لا
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" 
+                    class="w-full gradient-bg text-white font-bold py-4 rounded-xl shadow-blue-200 shadow-lg hover:opacity-90 transform transition active:scale-95 text-lg">
+                    إرسال الطلب للأستاذ
+                </button>
+
+            </form>
+
+            <div class="mt-8 pt-6 border-t text-center text-sm text-gray-400">
+                سيتم تحديد القوائم حسب الأماكن المتوفرة
+            </div>
         </div>
-    </div>
+    </main>
 
-    <script>
-        const { createApp, ref } = Vue;
+    <footer class="text-center py-8 text-gray-500 text-sm">
+        تحت إشراف أستاذ المادة &copy; 2026
+    </footer>
 
-        createApp({
-            setup() {
-                const searchId = ref('');
-                const searchDob = ref('');
-                const result = ref(null);
-                const error = ref(null);
-
-                const findStudent = async () => {
-                    try {
-                        const response = await fetch('data.json');
-                        const data = await response.json();
-                        
-                        const student = data.find(s => s.id === searchId.value && s.dob === searchDob.value);
-
-                        if (student) {
-                            result.value = student;
-                            error.value = null;
-                        } else {
-                            error.value = "المعلومات غير مطابقة، تأكد من البيانات.";
-                            result.value = null;
-                        }
-                    } catch (e) {
-                        error.value = "فشل تحميل البيانات. تأكد من وجود ملف data.json";
-                    }
-                };
-
-                return { searchId, searchDob, result, error, findStudent };
-            }
-        }).mount('#app');
-    </script>
 </body>
 </html>
